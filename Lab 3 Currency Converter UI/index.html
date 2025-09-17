@@ -6,6 +6,21 @@
         <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+      Name: <input type = "text" id = "name" value = "Enter Name">
+      <button class= "button" onclick="hello()">Button1</button>
+      <button class= "button" onclick="bye()">Button2</button>
+      <script>
+        function hello()
+        {
+          name = document.getElementById("name").value;
+          alert("Hello " + name);
+        }
+        function bye()
+        {
+          alert("Goodbye ");
+        }
+      </script>
+
       <!-- Add UI for Currency Converter -->
 
       
