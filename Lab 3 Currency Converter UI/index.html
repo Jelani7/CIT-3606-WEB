@@ -10,6 +10,7 @@
       <button class= "button" onclick="hello()">Button1</button>
       <button class= "button" onclick="bye()">Button2</button>
       <script>
+       
         function hello()
         {
           name = document.getElementById("name").value;
@@ -21,9 +22,16 @@
         }
       </script>
 
-      <!-- Add UI for Currency Converter -->
 
-      
+      <!-- Add UI for Currency Converter -->
+      <h2>USD to ECD Converter</h2>
+    <label for="usd">USD: </label>
+    <input type="text" id="usd" />
+    
+    <label for="ecd">ECD: </label>
+    <input type="text" id="ecd" />
+    
+    <button class="button" onclick="convert()">Convert</button>
       <!-- The JavaScript code is attached at the bottom of the page
            after the page is completely loaded. Write your code in script.js. -->
       <script src="script.js"></script>
