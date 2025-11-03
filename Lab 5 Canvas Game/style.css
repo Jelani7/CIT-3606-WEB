@@ -1,3 +1,30 @@
 body {
-    
+  background-color: #cce6ff; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  margin: 0;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+h1 {
+  color: #003366;
+  text-align: center;
+  margin-bottom: 20px;
+}
+canvas {
+  border: 3px solid #003366;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); 
+  border-radius: 10px;
+}
+#description {
+    background-color: lightblue;
+    width: 500px;
+    margin-top: -30px;
+    margin-left: 5px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
 }
