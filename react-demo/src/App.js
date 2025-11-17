@@ -1,32 +1,97 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import "./App.css";
 
+// ---- Reusable Catch Button ----
 function MyButton(props) {
-  return <button className="button" onClick= {handler}>{props.text}</button>;
+  const [caught, setCaught] = useState(false);
+
+  function handleClick() {
+    setCaught(true);
+  }
+
+  return (
+    <button className="button" onClick={handleClick}>
+      {caught ? "Caught!" : props.text}
+    </button>
+  );
 }
 
-function handler() {
-  alert('You clicked me!');
-}
-
+// ---- Pokemon Card Component ----
 function Pokemon(props) {
   return (
     <div className="Pokemon-card">
       <h2>{props.name}</h2>
       <img src={props.image} alt={props.name} />
+      <p>Type: {props.type}</p>
       <MyButton text={"Catch " + props.name} />
     </div>
   );
 }
 
+// ---- Search Component ----
+function Search() {
+  // State variables for Pokemon info
+  const [name, setName] = useState("pikachu");
+  const [image, setImage] = useState("");
+  const [type, setType] = useState("");
+
+  // Fetch data from PokeAPI
+  async function fetchPokemon() {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+      if (!response.ok) {
+        throw new Error("Pokémon not found");
+      }
+      const data = await response.json();
+
+      // Update state with API data
+      setImage(data.sprites.front_default);
+      setType(data.types[0].type.name);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setImage("");
+      setType("Not found");
+    }
+  }
+
+  // Load default Pokémon on startup
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
+
+  // Handle typing in search box
+  function handleChange(event) {
+    setName(event.target.value);
+  }
+
+  // Handle button click
+  function handleSearch() {
+    fetchPokemon();
+  }
+
+  return (
+    <div>
+      <h1>Pokédex</h1>
+      <input
+        type="text"
+        value={name}
+        onChange={handleChange}
+        placeholder="Enter Pokémon name"
+      />
+      <button onClick={handleSearch}>Search</button>
+
+      {/* Show card only if image exists */}
+      {image && <Pokemon name={name} image={image} type={type} />}
+    </div>
+  );
+}
+
+// ---- App Component ----
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Pokemon name="Pikachu" image="Pikachu.png" />
-        <Pokemon name="Charmeleon" image="Charmeleon.png"/>
-        <Pokemon name="Charizard" image="Charizard.png"/>
-
+        <Search />
       </header>
     </div>
   );
